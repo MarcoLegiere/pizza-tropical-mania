@@ -15,6 +15,7 @@ interface CartItem {
 
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [observations, setObservations] = useState("");
 
   const handleAddToCart = (productId: string, productName: string, productPrice: number) => {
     setCartItems((prev) => {
@@ -62,8 +63,9 @@ const Index = () => {
       .join("\n");
     
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const observationsText = observations.trim() ? `\n\n*Observações:*\n${observations.trim()}` : "";
     const whatsappMessage = encodeURIComponent(
-      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*`
+      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}`
     );
     
     const phoneNumber = "5511987654321";
@@ -166,6 +168,8 @@ const Index = () => {
         items={cartItems}
         onRemoveItem={handleRemoveItem}
         onCheckout={handleCheckout}
+        observations={observations}
+        onObservationsChange={setObservations}
       />
     </div>
   );

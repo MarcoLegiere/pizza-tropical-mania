@@ -1,6 +1,7 @@
 import { ShoppingCart, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CartItem {
   id: string;
@@ -13,9 +14,11 @@ interface CartProps {
   items: CartItem[];
   onRemoveItem: (id: string) => void;
   onCheckout: () => void;
+  observations: string;
+  onObservationsChange: (value: string) => void;
 }
 
-const Cart = ({ items, onRemoveItem, onCheckout }: CartProps) => {
+const Cart = ({ items, onRemoveItem, onCheckout, observations, onObservationsChange }: CartProps) => {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -68,6 +71,16 @@ const Cart = ({ items, onRemoveItem, onCheckout }: CartProps) => {
               </div>
             </div>
           ))}
+        </div>
+        
+        <div className="mb-3">
+          <Textarea
+            placeholder="Observações (ex: sem cebola, sem azeitona...)"
+            value={observations}
+            onChange={(e) => onObservationsChange(e.target.value)}
+            className="resize-none"
+            rows={2}
+          />
         </div>
         
         <Button
