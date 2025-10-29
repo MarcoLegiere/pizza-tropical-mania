@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface CartItem {
   id: string;
@@ -24,16 +25,23 @@ interface DeliveryData {
   city: string;
 }
 
+interface PaymentData {
+  method: "dinheiro" | "pix" | "cartao";
+  changeFor: string;
+}
+
 interface CartProps {
   items: CartItem[];
   onRemoveItem: (id: string) => void;
-  onCheckout: (deliveryData: DeliveryData) => void;
+  onCheckout: (deliveryData: DeliveryData, paymentData: PaymentData) => void;
   observations: string;
   onObservationsChange: (value: string) => void;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   deliveryData: DeliveryData;
   onDeliveryDataChange: (field: keyof DeliveryData, value: string) => void;
+  paymentData: PaymentData;
+  onPaymentDataChange: (field: keyof PaymentData, value: string) => void;
   disabled?: boolean;
 }
 
@@ -47,6 +55,8 @@ const Cart = ({
   onOpenChange,
   deliveryData,
   onDeliveryDataChange,
+  paymentData,
+  onPaymentDataChange,
   disabled
 }: CartProps) => {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -58,7 +68,7 @@ const Cart = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onCheckout(deliveryData);
+    onCheckout(deliveryData, paymentData);
   };
 
   return (
@@ -140,6 +150,48 @@ const Cart = ({
                 className="resize-none mt-2"
                 rows={2}
               />
+            </div>
+
+            {/* Forma de Pagamento */}
+            <div>
+              <h3 className="font-semibold mb-3">Forma de Pagamento</h3>
+              <RadioGroup
+                value={paymentData.method}
+                onValueChange={(value) => onPaymentDataChange('method', value)}
+                className="space-y-3"
+              >
+                <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="pix" id="pix" />
+                  <Label htmlFor="pix" className="flex-1 cursor-pointer">
+                    💳 PIX
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="cartao" id="cartao" />
+                  <Label htmlFor="cartao" className="flex-1 cursor-pointer">
+                    💳 Cartão (na entrega)
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                  <RadioGroupItem value="dinheiro" id="dinheiro" />
+                  <Label htmlFor="dinheiro" className="flex-1 cursor-pointer">
+                    💵 Dinheiro
+                  </Label>
+                </div>
+              </RadioGroup>
+
+              {paymentData.method === "dinheiro" && (
+                <div className="mt-4">
+                  <Label htmlFor="changeFor">Precisa de troco para quanto?</Label>
+                  <Input
+                    id="changeFor"
+                    value={paymentData.changeFor}
+                    onChange={(e) => onPaymentDataChange('changeFor', e.target.value)}
+                    placeholder="R$ 100,00"
+                    className="mt-2"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Dados de Entrega */}

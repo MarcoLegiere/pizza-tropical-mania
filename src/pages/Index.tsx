@@ -26,6 +26,11 @@ interface DeliveryData {
   city: string;
 }
 
+interface PaymentData {
+  method: "dinheiro" | "pix" | "cartao";
+  changeFor: string;
+}
+
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [observations, setObservations] = useState("");
@@ -40,6 +45,11 @@ const Index = () => {
     complement: "",
     neighborhood: "",
     city: "",
+  });
+  
+  const [paymentData, setPaymentData] = useState<PaymentData>({
+    method: "pix",
+    changeFor: "",
   });
 
   const handleAddToCart = (productId: string, productName: string, productPrice: number) => {
@@ -86,7 +96,11 @@ const Index = () => {
     setDeliveryData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleCheckout = (deliveryInfo: DeliveryData) => {
+  const handlePaymentDataChange = (field: keyof PaymentData, value: string) => {
+    setPaymentData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleCheckout = (deliveryInfo: DeliveryData, paymentInfo: PaymentData) => {
     if (!storeIsOpen) {
       toast.error("Desculpe, a loja está fechada no momento!");
       return;
@@ -106,8 +120,15 @@ const Index = () => {
     
     const deliveryAddress = `${deliveryInfo.street}, ${deliveryInfo.number}${deliveryInfo.complement ? ` - ${deliveryInfo.complement}` : ""}\n${deliveryInfo.neighborhood}, ${deliveryInfo.city}\nCEP: ${deliveryInfo.cep}`;
     
+    const paymentMethod = paymentInfo.method === "pix" ? "PIX" : 
+                         paymentInfo.method === "cartao" ? "Cartão (na entrega)" : 
+                         "Dinheiro";
+    const changeInfo = paymentInfo.method === "dinheiro" && paymentInfo.changeFor 
+      ? `\nTroco para: ${paymentInfo.changeFor}` 
+      : "";
+    
     const whatsappMessage = encodeURIComponent(
-      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}`
+      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Forma de Pagamento:*\n${paymentMethod}${changeInfo}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}`
     );
     
     const phoneNumber = "5511933586970";
@@ -125,6 +146,10 @@ const Index = () => {
       complement: "",
       neighborhood: "",
       city: "",
+    });
+    setPaymentData({
+      method: "pix",
+      changeFor: "",
     });
     setIsCartOpen(false);
     toast.success("Pedido enviado com sucesso!");
@@ -237,6 +262,8 @@ const Index = () => {
         onOpenChange={setIsCartOpen}
         deliveryData={deliveryData}
         onDeliveryDataChange={handleDeliveryDataChange}
+        paymentData={paymentData}
+        onPaymentDataChange={handlePaymentDataChange}
         disabled={!storeIsOpen}
       />
     </div>
