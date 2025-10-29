@@ -13,9 +13,31 @@ interface CartItem {
   quantity: number;
 }
 
+interface DeliveryData {
+  name: string;
+  phone: string;
+  cep: string;
+  street: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+}
+
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [observations, setObservations] = useState("");
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [deliveryData, setDeliveryData] = useState<DeliveryData>({
+    name: "",
+    phone: "",
+    cep: "",
+    street: "",
+    number: "",
+    complement: "",
+    neighborhood: "",
+    city: "",
+  });
 
   const handleAddToCart = (productId: string, productName: string, productPrice: number) => {
     setCartItems((prev) => {
@@ -52,7 +74,11 @@ const Index = () => {
     });
   };
 
-  const handleCheckout = () => {
+  const handleDeliveryDataChange = (field: keyof DeliveryData, value: string) => {
+    setDeliveryData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleCheckout = (deliveryInfo: DeliveryData) => {
     if (cartItems.length === 0) {
       toast.error("Seu carrinho está vazio!");
       return;
@@ -63,13 +89,32 @@ const Index = () => {
       .join("\n");
     
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const observationsText = observations.trim() ? `\n\n*Observações:*\n${observations.trim()}` : "";
+    const observationsText = observations.trim() ? `\n\n*Observações do Pedido:*\n${observations.trim()}` : "";
+    
+    const deliveryAddress = `${deliveryInfo.street}, ${deliveryInfo.number}${deliveryInfo.complement ? ` - ${deliveryInfo.complement}` : ""}\n${deliveryInfo.neighborhood}, ${deliveryInfo.city}\nCEP: ${deliveryInfo.cep}`;
+    
     const whatsappMessage = encodeURIComponent(
-      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}`
+      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}`
     );
     
     const phoneNumber = "5511987654321";
     window.open(`https://wa.me/${phoneNumber}?text=${whatsappMessage}`, "_blank");
+    
+    // Limpa o carrinho e fecha o modal após enviar
+    setCartItems([]);
+    setObservations("");
+    setDeliveryData({
+      name: "",
+      phone: "",
+      cep: "",
+      street: "",
+      number: "",
+      complement: "",
+      neighborhood: "",
+      city: "",
+    });
+    setIsCartOpen(false);
+    toast.success("Pedido enviado com sucesso!");
   };
 
   const pizzasSalgadas = products.filter((p) => p.category === "salgada");
@@ -170,6 +215,10 @@ const Index = () => {
         onCheckout={handleCheckout}
         observations={observations}
         onObservationsChange={setObservations}
+        isOpen={isCartOpen}
+        onOpenChange={setIsCartOpen}
+        deliveryData={deliveryData}
+        onDeliveryDataChange={handleDeliveryDataChange}
       />
     </div>
   );
