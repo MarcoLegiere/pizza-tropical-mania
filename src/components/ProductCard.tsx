@@ -8,9 +8,10 @@ interface ProductCardProps {
   price: number;
   image: string;
   onAddToCart: () => void;
+  disabled?: boolean;
 }
 
-const ProductCard = ({ name, description, price, image, onAddToCart }: ProductCardProps) => {
+const ProductCard = ({ name, description, price, image, onAddToCart, disabled }: ProductCardProps) => {
   return (
     <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
       <div className="aspect-square overflow-hidden bg-muted">
@@ -34,9 +35,10 @@ const ProductCard = ({ name, description, price, image, onAddToCart }: ProductCa
             onClick={onAddToCart}
             size="sm"
             className="gap-1 shadow-lg hover:shadow-xl transition-shadow"
+            disabled={disabled}
           >
             <Plus className="w-4 h-4" />
-            Adicionar
+            {disabled ? "Fechado" : "Adicionar"}
           </Button>
         </div>
       </div>

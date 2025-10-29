@@ -3,8 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import Cart from "@/components/Cart";
+import ClosedBanner from "@/components/ClosedBanner";
 import { products } from "@/data/products";
 import { toast } from "sonner";
+import { isStoreOpen } from "@/utils/storeHours";
 
 interface CartItem {
   id: string;
@@ -28,6 +30,7 @@ const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [observations, setObservations] = useState("");
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const storeIsOpen = isStoreOpen();
   const [deliveryData, setDeliveryData] = useState<DeliveryData>({
     name: "",
     phone: "",
@@ -40,6 +43,11 @@ const Index = () => {
   });
 
   const handleAddToCart = (productId: string, productName: string, productPrice: number) => {
+    if (!storeIsOpen) {
+      toast.error("Desculpe, a loja está fechada no momento!");
+      return;
+    }
+    
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === productId);
       
@@ -79,6 +87,11 @@ const Index = () => {
   };
 
   const handleCheckout = (deliveryInfo: DeliveryData) => {
+    if (!storeIsOpen) {
+      toast.error("Desculpe, a loja está fechada no momento!");
+      return;
+    }
+    
     if (cartItems.length === 0) {
       toast.error("Seu carrinho está vazio!");
       return;
@@ -125,6 +138,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background pb-32">
       <Hero />
+      {!storeIsOpen && <ClosedBanner />}
       
       <main className="container mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-foreground">
@@ -157,6 +171,7 @@ const Index = () => {
                   price={product.price}
                   image={product.image}
                   onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                  disabled={!storeIsOpen}
                 />
               ))}
             </div>
@@ -172,6 +187,7 @@ const Index = () => {
                   price={product.price}
                   image={product.image}
                   onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                  disabled={!storeIsOpen}
                 />
               ))}
             </div>
@@ -187,6 +203,7 @@ const Index = () => {
                   price={product.price}
                   image={product.image}
                   onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                  disabled={!storeIsOpen}
                 />
               ))}
             </div>
@@ -202,6 +219,7 @@ const Index = () => {
                   price={product.price}
                   image={product.image}
                   onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                  disabled={!storeIsOpen}
                 />
               ))}
             </div>
@@ -219,6 +237,7 @@ const Index = () => {
         onOpenChange={setIsCartOpen}
         deliveryData={deliveryData}
         onDeliveryDataChange={handleDeliveryDataChange}
+        disabled={!storeIsOpen}
       />
     </div>
   );

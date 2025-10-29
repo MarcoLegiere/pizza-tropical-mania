@@ -34,6 +34,7 @@ interface CartProps {
   onOpenChange: (open: boolean) => void;
   deliveryData: DeliveryData;
   onDeliveryDataChange: (field: keyof DeliveryData, value: string) => void;
+  disabled?: boolean;
 }
 
 const Cart = ({ 
@@ -45,7 +46,8 @@ const Cart = ({
   isOpen,
   onOpenChange,
   deliveryData,
-  onDeliveryDataChange
+  onDeliveryDataChange,
+  disabled
 }: CartProps) => {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -66,6 +68,7 @@ const Cart = ({
           onClick={() => onOpenChange(true)}
           size="lg"
           className="h-16 px-6 rounded-full shadow-2xl gap-3"
+          disabled={disabled}
         >
           <ShoppingCart className="w-6 h-6" />
           <div className="flex flex-col items-start">
@@ -244,9 +247,10 @@ const Cart = ({
               type="submit"
               className="w-full gap-2 shadow-lg text-lg h-12"
               size="lg"
+              disabled={disabled}
             >
               <Send className="w-5 h-5" />
-              Enviar pedido via WhatsApp
+              {disabled ? "Loja fechada" : "Enviar pedido via WhatsApp"}
             </Button>
           </form>
         </DialogContent>
