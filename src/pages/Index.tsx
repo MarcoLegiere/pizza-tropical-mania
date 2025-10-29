@@ -110,7 +110,7 @@ const Index = () => {
       `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}`
     );
     
-    const phoneNumber = "5511987654321";
+    const phoneNumber = "5511933586970";
     window.open(`https://wa.me/${phoneNumber}?text=${whatsappMessage}`, "_blank");
     
     // Limpa o carrinho e fecha o modal após enviar
