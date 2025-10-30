@@ -143,11 +143,9 @@ const Index = () => {
       `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Subtotal: R$ ${subtotal.toFixed(2)}*\n*Taxa de Entrega: R$ ${deliveryFee.toFixed(2)}*\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Forma de Pagamento:*\n${paymentMethod}${changeInfo}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}\n\n*Tempo estimado: 40-60 minutos*`
     );
     
-    const phoneNumber = "5511933586970";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-    
-    // Redireciona diretamente ao invés de abrir popup
-    window.location.href = whatsappUrl;
+    // Abre WhatsApp diretamente
+    const whatsappUrl = `https://wa.me/5511933586970?text=${whatsappMessage}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     
     // Limpa o carrinho e fecha o modal após enviar
     setCartItems([]);
