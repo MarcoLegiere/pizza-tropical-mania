@@ -1,17 +1,35 @@
 import { MapPin, Phone, Instagram } from "lucide-react";
+import logo from "@/assets/logo-bella-vista.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted/50 border-t border-border mt-16">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-primary text-primary-foreground mt-16 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 py-12 relative z-10">
+        {/* Logo e descrição */}
+        <div className="flex flex-col items-center mb-10">
+          <img src={logo} alt="Bella Vista Logo" className="w-32 h-32 mb-4" />
+          <p className="text-center text-sm opacity-80 max-w-md">
+            Sabor autêntico italiano com ingredientes frescos e massa artesanal. 
+            Uma experiência gastronômica única em cada fatia.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Endereço */}
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <div className="flex items-center gap-2 text-primary">
-              <MapPin className="w-5 h-5" />
-              <h3 className="font-semibold">Endereço</h3>
+          <div className="flex flex-col items-center md:items-start gap-3">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-accent/20 rounded-full">
+                <MapPin className="w-5 h-5 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-accent">Endereço</h3>
             </div>
-            <p className="text-sm text-muted-foreground text-center md:text-left">
+            <p className="text-sm opacity-90 text-center md:text-left leading-relaxed">
               Rua Exemplo, 123<br />
               Bairro Centro<br />
               São Paulo - SP
@@ -19,44 +37,48 @@ const Footer = () => {
           </div>
 
           {/* Contato */}
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center gap-2 text-primary">
-              <Phone className="w-5 h-5" />
-              <h3 className="font-semibold">Telefone</h3>
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-accent/20 rounded-full">
+                <Phone className="w-5 h-5 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-accent">Contato</h3>
             </div>
             <a 
               href="tel:+5511933586970" 
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm opacity-90 hover:text-accent transition-colors font-semibold"
             >
               (11) 93358-6970
             </a>
-            <p className="text-xs text-muted-foreground mt-2">
-              Horário de atendimento:<br />
-              Ter - Dom: 18h às 23h<br />
-              Segunda: Fechado
-            </p>
+            <div className="text-xs opacity-75 text-center mt-1 leading-relaxed">
+              <p className="font-semibold mb-1">Horário de atendimento:</p>
+              <p>Ter - Dom: 18h às 23h</p>
+              <p>Segunda: Fechado</p>
+            </div>
           </div>
 
           {/* Redes Sociais */}
-          <div className="flex flex-col items-center md:items-end gap-2">
-            <div className="flex items-center gap-2 text-primary">
-              <Instagram className="w-5 h-5" />
-              <h3 className="font-semibold">Redes Sociais</h3>
+          <div className="flex flex-col items-center md:items-end gap-3">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-accent/20 rounded-full">
+                <Instagram className="w-5 h-5 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-accent">Redes Sociais</h3>
             </div>
             <a 
               href="https://instagram.com/pizzariabellavista" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+              className="text-sm opacity-90 hover:text-accent transition-colors flex items-center gap-2 group"
             >
-              <Instagram className="w-4 h-4" />
+              <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
               @pizzariabellavista
             </a>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-border text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="pt-6 border-t border-primary-foreground/20 text-center">
+          <p className="text-xs opacity-75">
             © 2024 Pizzaria Bella Vista. Todos os direitos reservados.
           </p>
         </div>

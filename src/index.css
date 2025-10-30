@@ -17,35 +17,35 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 20 10% 15%;
 
-    /* Warm pizza red/tomato primary */
-    --primary: 8 85% 55%;
+    /* Elegant black primary */
+    --primary: 0 0% 10%;
     --primary-foreground: 0 0% 100%;
     
-    /* Golden cheese accent */
-    --secondary: 45 95% 65%;
-    --secondary-foreground: 20 10% 15%;
+    /* Luxurious gold accent */
+    --secondary: 45 90% 55%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 30 20% 92%;
-    --muted-foreground: 20 8% 45%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    /* Warm golden accent */
-    --accent: 38 92% 60%;
-    --accent-foreground: 20 10% 15%;
+    /* Premium gold accent */
+    --accent: 43 95% 58%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 88%;
-    --input: 30 15% 88%;
-    --ring: 8 85% 55%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 43 95% 58%;
 
     --radius: 0.75rem;
     
-    /* Custom pizza theme tokens */
-    --hero-gradient-from: 8 85% 55%;
-    --hero-gradient-to: 25 95% 60%;
-    --pizza-shadow: 8 85% 55% / 0.15;
-    --card-hover-shadow: 8 85% 55% / 0.25;
+    /* Custom elegant theme tokens */
+    --hero-gradient-from: 0 0% 8%;
+    --hero-gradient-to: 0 0% 18%;
+    --pizza-shadow: 43 95% 58% / 0.3;
+    --card-hover-shadow: 43 95% 58% / 0.4;
 
     --sidebar-background: 0 0% 98%;
 
@@ -65,38 +65,38 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 20 15% 12%;
-    --foreground: 30 20% 95%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 20 15% 15%;
-    --card-foreground: 30 20% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 20 15% 15%;
-    --popover-foreground: 30 20% 95%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 8 85% 60%;
+    --primary: 0 0% 15%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 95% 60%;
-    --secondary-foreground: 20 10% 15%;
+    --secondary: 45 90% 50%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 20 15% 20%;
-    --muted-foreground: 30 15% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 38 92% 55%;
-    --accent-foreground: 30 20% 95%;
+    --accent: 43 95% 58%;
+    --accent-foreground: 0 0% 95%;
 
     --destructive: 0 75% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 20 15% 25%;
-    --input: 20 15% 25%;
-    --ring: 8 85% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 43 95% 58%;
     
-    --hero-gradient-from: 8 85% 50%;
-    --hero-gradient-to: 25 95% 55%;
-    --pizza-shadow: 8 85% 60% / 0.2;
-    --card-hover-shadow: 8 85% 60% / 0.35;
+    --hero-gradient-from: 0 0% 5%;
+    --hero-gradient-to: 0 0% 12%;
+    --pizza-shadow: 43 95% 58% / 0.4;
+    --card-hover-shadow: 43 95% 58% / 0.5;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
