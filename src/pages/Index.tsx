@@ -144,7 +144,10 @@ const Index = () => {
     );
     
     const phoneNumber = "5511933586970";
-    window.open(`https://wa.me/${phoneNumber}?text=${whatsappMessage}`, "_blank");
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+    
+    // Redireciona diretamente ao invés de abrir popup
+    window.location.href = whatsappUrl;
     
     // Limpa o carrinho e fecha o modal após enviar
     setCartItems([]);
