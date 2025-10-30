@@ -1,4 +1,4 @@
-import { ShoppingCart, Send, X } from "lucide-react";
+import { ShoppingCart, Send, X, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { fetchAddressByCEP } from "@/utils/cepValidation";
+import { toast } from "sonner";
 
 interface CartItem {
   id: string;
@@ -43,6 +45,7 @@ interface CartProps {
   paymentData: PaymentData;
   onPaymentDataChange: (field: keyof PaymentData, value: string) => void;
   disabled?: boolean;
+  deliveryFee: number;
 }
 
 const Cart = ({ 
@@ -57,10 +60,33 @@ const Cart = ({
   onDeliveryDataChange,
   paymentData,
   onPaymentDataChange,
-  disabled
+  disabled,
+  deliveryFee
 }: CartProps) => {
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = subtotal + deliveryFee;
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleCEPChange = async (cep: string) => {
+    onDeliveryDataChange('cep', cep);
+    
+    // Busca endereço quando CEP tiver 8 dígitos
+    const cleanCEP = cep.replace(/\D/g, "");
+    if (cleanCEP.length === 8) {
+      toast.loading("Buscando endereço...");
+      const addressData = await fetchAddressByCEP(cep);
+      toast.dismiss();
+      
+      if (addressData) {
+        onDeliveryDataChange('street', addressData.logradouro);
+        onDeliveryDataChange('neighborhood', addressData.bairro);
+        onDeliveryDataChange('city', addressData.localidade);
+        toast.success("Endereço encontrado!");
+      } else {
+        toast.error("CEP não encontrado. Preencha manualmente.");
+      }
+    }
+  };
 
   if (items.length === 0) {
     return null;
@@ -127,17 +153,35 @@ const Cart = ({
                       >
                         <X className="w-4 h-4 text-destructive" />
                       </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-3 pt-3 border-t border-border flex justify-between items-center">
-                <span className="font-bold text-lg">Total:</span>
-                <span className="text-2xl font-bold text-primary">
-                  R$ {total.toFixed(2)}
-                </span>
               </div>
             </div>
+          ))}
+        </div>
+        <div className="mt-3 pt-3 border-t border-border space-y-2">
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-muted-foreground">Subtotal:</span>
+            <span className="font-semibold">R$ {subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-muted-foreground">Taxa de entrega:</span>
+            <span className="font-semibold">R$ {deliveryFee.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between items-center pt-2 border-t border-border">
+            <span className="font-bold text-lg">Total:</span>
+            <span className="text-2xl font-bold text-primary">
+              R$ {total.toFixed(2)}
+            </span>
+          </div>
+        </div>
+        
+        {/* Tempo Estimado */}
+        <div className="mt-3 p-3 bg-primary/10 rounded-lg flex items-center justify-center gap-2">
+          <Clock className="w-4 h-4 text-primary" />
+          <span className="text-sm font-medium text-primary">
+            Tempo estimado de entrega: 40-60 minutos
+          </span>
+        </div>
+      </div>
 
             {/* Observações */}
             <div>
@@ -222,17 +266,21 @@ const Cart = ({
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="cep">CEP *</Label>
-                  <Input
-                    id="cep"
-                    required
-                    value={deliveryData.cep}
-                    onChange={(e) => onDeliveryDataChange('cep', e.target.value)}
-                    placeholder="00000-000"
-                    className="mt-2"
-                  />
-                </div>
+            <div>
+              <Label htmlFor="cep">CEP *</Label>
+              <Input
+                id="cep"
+                required
+                value={deliveryData.cep}
+                onChange={(e) => handleCEPChange(e.target.value)}
+                placeholder="00000-000"
+                className="mt-2"
+                maxLength={9}
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Digite o CEP para preenchimento automático
+              </p>
+            </div>
 
                 <div>
                   <Label htmlFor="street">Rua *</Label>

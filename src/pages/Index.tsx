@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import Cart from "@/components/Cart";
 import ClosedBanner from "@/components/ClosedBanner";
+import Footer from "@/components/Footer";
 import { products } from "@/data/products";
 import { toast } from "sonner";
 import { isStoreOpen } from "@/utils/storeHours";
+import { getDeliveryFee } from "@/utils/cepValidation";
 
 interface CartItem {
   id: string;
@@ -36,6 +38,7 @@ const Index = () => {
   const [observations, setObservations] = useState("");
   const [isCartOpen, setIsCartOpen] = useState(false);
   const storeIsOpen = isStoreOpen();
+  const [deliveryFee, setDeliveryFee] = useState(6.00); // Taxa padrão
   const [deliveryData, setDeliveryData] = useState<DeliveryData>({
     name: "",
     phone: "",
@@ -51,6 +54,14 @@ const Index = () => {
     method: "pix",
     changeFor: "",
   });
+
+  // Atualiza taxa de entrega quando o bairro muda
+  useEffect(() => {
+    if (deliveryData.neighborhood) {
+      const fee = getDeliveryFee(deliveryData.neighborhood);
+      setDeliveryFee(fee);
+    }
+  }, [deliveryData.neighborhood]);
 
   const handleAddToCart = (productId: string, productName: string, productPrice: number) => {
     if (!storeIsOpen) {
@@ -115,7 +126,8 @@ const Index = () => {
       .map((item) => `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`)
       .join("\n");
     
-    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = subtotal + deliveryFee;
     const observationsText = observations.trim() ? `\n\n*Observações do Pedido:*\n${observations.trim()}` : "";
     
     const deliveryAddress = `${deliveryInfo.street}, ${deliveryInfo.number}${deliveryInfo.complement ? ` - ${deliveryInfo.complement}` : ""}\n${deliveryInfo.neighborhood}, ${deliveryInfo.city}\nCEP: ${deliveryInfo.cep}`;
@@ -128,7 +140,7 @@ const Index = () => {
       : "";
     
     const whatsappMessage = encodeURIComponent(
-      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Forma de Pagamento:*\n${paymentMethod}${changeInfo}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}`
+      `*Pedido Pizzaria Bella Vista*\n\n${message}\n\n*Subtotal: R$ ${subtotal.toFixed(2)}*\n*Taxa de Entrega: R$ ${deliveryFee.toFixed(2)}*\n*Total: R$ ${total.toFixed(2)}*${observationsText}\n\n*Forma de Pagamento:*\n${paymentMethod}${changeInfo}\n\n*Dados de Entrega:*\nNome: ${deliveryInfo.name}\nTelefone: ${deliveryInfo.phone}\nEndereço: ${deliveryAddress}\n\n*Tempo estimado: 40-60 minutos*`
     );
     
     const phoneNumber = "5511933586970";
@@ -265,7 +277,10 @@ const Index = () => {
         paymentData={paymentData}
         onPaymentDataChange={handlePaymentDataChange}
         disabled={!storeIsOpen}
+        deliveryFee={deliveryFee}
       />
+      
+      <Footer />
     </div>
   );
 };
