@@ -36,9 +36,6 @@ const Hero = () => {
           </div>
         </div>
         
-        <p className="text-xl md:text-2xl opacity-90 max-w-2xl mx-auto font-light">
-          Sabor autêntico italiano com massa artesanal e ingredientes frescos
-        </p>
       </div>
     </header>
   );
