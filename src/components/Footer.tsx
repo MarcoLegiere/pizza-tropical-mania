@@ -3,7 +3,7 @@ import logo from "@/assets/logo-bella-vista.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground mt-16 relative overflow-hidden">
+    <footer className="bg-card text-card-foreground mt-16 relative overflow-hidden border-t">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent rounded-full blur-3xl" />

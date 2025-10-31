@@ -17,8 +17,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 20 10% 15%;
 
-    /* Elegant black primary */
-    --primary: 0 0% 10%;
+    /* Elegant green primary for buttons */
+    --primary: 145 65% 42%;
     --primary-foreground: 0 0% 100%;
     
     /* Luxurious gold accent */
@@ -74,7 +74,7 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 0 0% 15%;
+    --primary: 145 65% 42%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 45 90% 50%;
@@ -115,5 +115,12 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    margin: 0;
+    padding: 0;
   }
 }
