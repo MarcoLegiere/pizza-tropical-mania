@@ -73,7 +73,7 @@ const Index = () => {
       const existingItem = prev.find((item) => item.id === productId);
       
       if (existingItem) {
-        toast.success("Quantidade atualizada no carrinho!");
+        toast.success("Quantidade atualizada no carrinho!", { duration: 1500 });
         return prev.map((item) =>
           item.id === productId
             ? { ...item, quantity: item.quantity + 1 }
@@ -81,7 +81,7 @@ const Index = () => {
         );
       }
       
-      toast.success("Item adicionado ao carrinho!");
+      toast.success("Item adicionado ao carrinho!", { duration: 1500 });
       return [...prev, { id: productId, name: productName, price: productPrice, quantity: 1 }];
     });
   };
