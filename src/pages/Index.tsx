@@ -5,6 +5,7 @@ import ProductCard from "@/components/ProductCard";
 import Cart from "@/components/Cart";
 import ClosedBanner from "@/components/ClosedBanner";
 import Footer from "@/components/Footer";
+import LocationMap from "@/components/LocationMap";
 import { products } from "@/data/products";
 import { toast } from "sonner";
 import { isStoreOpen } from "@/utils/storeHours";
@@ -147,6 +148,12 @@ const Index = () => {
     const whatsappUrl = `https://wa.me/5511933586970?text=${whatsappMessage}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     
+    // Mostra notificação de confirmação
+    toast.success("🎉 Pedido enviado para o WhatsApp!", {
+      description: "Aguarde a confirmação da pizzaria. Em breve você receberá o retorno!",
+      duration: 5000,
+    });
+    
     // Limpa o carrinho e fecha o modal após enviar
     setCartItems([]);
     setObservations("");
@@ -165,7 +172,6 @@ const Index = () => {
       changeFor: "",
     });
     setIsCartOpen(false);
-    toast.success("Pedido enviado com sucesso!");
   };
 
   const pizzasSalgadas = products.filter((p) => p.category === "salgada");
@@ -281,6 +287,7 @@ const Index = () => {
         deliveryFee={deliveryFee}
       />
       
+      <LocationMap />
       <Footer />
     </div>
   );
