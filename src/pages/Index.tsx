@@ -5,7 +5,6 @@ import ProductCard from "@/components/ProductCard";
 import Cart from "@/components/Cart";
 import ClosedBanner from "@/components/ClosedBanner";
 import Footer from "@/components/Footer";
-import LocationMap from "@/components/LocationMap";
 import { products } from "@/data/products";
 import { toast } from "sonner";
 import { isStoreOpen } from "@/utils/storeHours";
@@ -287,7 +286,6 @@ const Index = () => {
         deliveryFee={deliveryFee}
       />
       
-      <LocationMap />
       <Footer />
     </div>
   );
