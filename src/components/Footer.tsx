@@ -15,12 +15,12 @@ const Footer = () => {
 
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Grid com informações e mapa */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
           {/* Coluna esquerda - Informações */}
           <div className="flex flex-col gap-6">
             {/* Contato */}
-            <div className="flex flex-col gap-4 p-6 bg-background/50 rounded-xl border border-accent/20">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-4 p-8 bg-background/50 rounded-xl border border-accent/20 h-full">
+              <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-accent/20 rounded-full">
                   <Phone className="w-5 h-5 text-accent" />
                 </div>
@@ -28,20 +28,20 @@ const Footer = () => {
               </div>
               <a 
                 href="tel:+5511933586970" 
-                className="text-base opacity-90 hover:text-accent transition-colors font-semibold"
+                className="text-base hover:text-accent transition-colors font-semibold"
               >
                 (11) 93358-6970
               </a>
-              <div className="text-sm opacity-75 leading-relaxed">
-                <p className="font-semibold mb-1">Horário:</p>
-                <p>Ter-Dom: 18h-23h</p>
-                <p>Seg: Fechado</p>
+              <div className="text-sm opacity-80 leading-relaxed">
+                <p className="font-semibold mb-2 text-foreground">Horário de Funcionamento:</p>
+                <p>Terça a Domingo: 18h às 23h</p>
+                <p className="text-muted-foreground mt-1">Segunda-feira: Fechado</p>
               </div>
             </div>
 
             {/* Redes Sociais */}
-            <div className="flex flex-col gap-4 p-6 bg-background/50 rounded-xl border border-accent/20">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-4 p-8 bg-background/50 rounded-xl border border-accent/20 h-full">
+              <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-accent/20 rounded-full">
                   <Instagram className="w-5 h-5 text-accent" />
                 </div>
@@ -51,23 +51,23 @@ const Footer = () => {
                 href="https://instagram.com/pizzariabellavista" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-base opacity-90 hover:text-accent transition-colors flex items-center gap-2 group"
+                className="text-base hover:text-accent transition-colors flex items-center gap-2 group font-medium"
               >
-                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 @pizzariabellavista
               </a>
             </div>
           </div>
 
           {/* Coluna direita - Mapa */}
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-primary/20 rounded-full">
-                <MapPin className="w-5 h-5 text-primary" />
+          <div className="flex flex-col gap-4 p-8 bg-background/50 rounded-xl border border-accent/20">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-accent/20 rounded-full">
+                <MapPin className="w-5 h-5 text-accent" />
               </div>
-              <h3 className="font-bold text-lg text-foreground">Nossa Localização</h3>
+              <h3 className="font-bold text-lg text-accent">Nossa Localização</h3>
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-xl border-2 border-accent/20 h-full min-h-[350px]">
+            <div className="relative rounded-lg overflow-hidden shadow-lg border border-accent/10 h-full min-h-[400px]">
               <iframe
                 src={mapSrc}
                 width="100%"
