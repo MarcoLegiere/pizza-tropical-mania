@@ -184,7 +184,7 @@ const Index = () => {
       {!storeIsOpen && <ClosedBanner />}
       
       <main className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-foreground">
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-8 text-foreground animate-fade-in-up opacity-0" style={{ animationDelay: "0.6s", animationFillMode: "forwards" }}>
           Conheça nosso menu
         </h2>
         
@@ -206,64 +206,68 @@ const Index = () => {
 
           <TabsContent value="salgada">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pizzasSalgadas.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  image={product.image}
-                  onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
-                  disabled={!storeIsOpen}
-                />
+              {pizzasSalgadas.map((product, index) => (
+                <div key={product.id} style={{ animationDelay: `${0.1 * index}s` }}>
+                  <ProductCard
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    image={product.image}
+                    onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                    disabled={!storeIsOpen}
+                  />
+                </div>
               ))}
             </div>
           </TabsContent>
 
           <TabsContent value="doce">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pizzasDoces.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  image={product.image}
-                  onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
-                  disabled={!storeIsOpen}
-                />
+              {pizzasDoces.map((product, index) => (
+                <div key={product.id} style={{ animationDelay: `${0.1 * index}s` }}>
+                  <ProductCard
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    image={product.image}
+                    onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                    disabled={!storeIsOpen}
+                  />
+                </div>
               ))}
             </div>
           </TabsContent>
 
           <TabsContent value="esfiha">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {esfihas.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  image={product.image}
-                  onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
-                  disabled={!storeIsOpen}
-                />
+              {esfihas.map((product, index) => (
+                <div key={product.id} style={{ animationDelay: `${0.1 * index}s` }}>
+                  <ProductCard
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    image={product.image}
+                    onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                    disabled={!storeIsOpen}
+                  />
+                </div>
               ))}
             </div>
           </TabsContent>
 
           <TabsContent value="bebida">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {bebidas.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  image={product.image}
-                  onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
-                  disabled={!storeIsOpen}
-                />
+              {bebidas.map((product, index) => (
+                <div key={product.id} style={{ animationDelay: `${0.1 * index}s` }}>
+                  <ProductCard
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    image={product.image}
+                    onAddToCart={() => handleAddToCart(product.id, product.name, product.price)}
+                    disabled={!storeIsOpen}
+                  />
+                </div>
               ))}
             </div>
           </TabsContent>

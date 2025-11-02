@@ -99,17 +99,24 @@ const Cart = ({
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-4 right-4 z-50 animate-slide-up">
         <Button
           onClick={() => onOpenChange(true)}
           size="lg"
-          className="h-16 px-6 rounded-full shadow-2xl gap-3"
+          className="h-16 px-6 rounded-full shadow-premium gap-3 hover:shadow-glow transition-all duration-500 hover:scale-105 active:scale-95 relative overflow-hidden group"
           disabled={disabled}
         >
-          <ShoppingCart className="w-6 h-6" />
-          <div className="flex flex-col items-start">
-            <span className="text-xs opacity-90">{itemCount} {itemCount === 1 ? "item" : "itens"}</span>
-            <span className="text-lg font-bold">R$ {total.toFixed(2)}</span>
+          {/* Shimmer effect */}
+          <div className="absolute inset-0 bg-shimmer-gradient animate-shimmer" />
+          
+          <ShoppingCart className="w-6 h-6 relative z-10 group-hover:animate-bounce-in" />
+          <div className="flex flex-col items-start relative z-10">
+            <span className="text-xs opacity-90 font-elegant transition-all duration-300 group-hover:scale-110">
+              {itemCount} {itemCount === 1 ? "item" : "itens"}
+            </span>
+            <span className="text-lg font-bold font-display transition-all duration-300 group-hover:scale-110">
+              R$ {total.toFixed(2)}
+            </span>
           </div>
         </Button>
       </div>
