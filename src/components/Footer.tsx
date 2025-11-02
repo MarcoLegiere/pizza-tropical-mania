@@ -14,15 +14,6 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Logo e descrição */}
-        <div className="flex flex-col items-center mb-12">
-          <img src={logo} alt="Bella Vista Logo" className="w-28 h-28 mb-4" />
-          <p className="text-center text-sm opacity-80 max-w-md leading-relaxed">
-            Sabor autêntico italiano com ingredientes frescos e massa artesanal. 
-            Uma experiência gastronômica única em cada fatia.
-          </p>
-        </div>
-
         {/* Grid com informações e mapa */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
           {/* Coluna esquerda - Informações */}
