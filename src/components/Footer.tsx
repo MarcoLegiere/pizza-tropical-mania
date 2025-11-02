@@ -17,72 +17,45 @@ const Footer = () => {
         {/* Grid com informações e mapa */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
           {/* Coluna esquerda - Informações */}
-          <div className="space-y-8">
-            {/* Endereço */}
-            <div className="flex flex-col items-start gap-3 p-6 bg-background/50 rounded-xl border border-accent/20">
+          <div className="flex flex-col gap-6">
+            {/* Contato */}
+            <div className="flex flex-col gap-4 p-6 bg-background/50 rounded-xl border border-accent/20">
               <div className="flex items-center gap-2">
                 <div className="p-2 bg-accent/20 rounded-full">
-                  <MapPin className="w-5 h-5 text-accent" />
+                  <Phone className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="font-bold text-lg text-accent">Endereço</h3>
+                <h3 className="font-bold text-lg text-accent">Contato</h3>
               </div>
-              <p className="text-sm opacity-90 leading-relaxed">
-                Rua Exemplo, 123<br />
-                Bairro Centro<br />
-                São Paulo - SP
-              </p>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium group"
+              <a 
+                href="tel:+5511933586970" 
+                className="text-base opacity-90 hover:text-accent transition-colors font-semibold"
               >
-                <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                Abrir no Google Maps
+                (11) 93358-6970
               </a>
+              <div className="text-sm opacity-75 leading-relaxed">
+                <p className="font-semibold mb-1">Horário:</p>
+                <p>Ter-Dom: 18h-23h</p>
+                <p>Seg: Fechado</p>
+              </div>
             </div>
 
-            {/* Contato e Redes Sociais */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Contato */}
-              <div className="flex flex-col gap-3 p-6 bg-background/50 rounded-xl border border-accent/20">
-                <div className="flex items-center gap-2">
-                  <div className="p-2 bg-accent/20 rounded-full">
-                    <Phone className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="font-bold text-base text-accent">Contato</h3>
+            {/* Redes Sociais */}
+            <div className="flex flex-col gap-4 p-6 bg-background/50 rounded-xl border border-accent/20">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-accent/20 rounded-full">
+                  <Instagram className="w-5 h-5 text-accent" />
                 </div>
-                <a 
-                  href="tel:+5511933586970" 
-                  className="text-sm opacity-90 hover:text-accent transition-colors font-semibold"
-                >
-                  (11) 93358-6970
-                </a>
-                <div className="text-xs opacity-75 leading-relaxed">
-                  <p className="font-semibold mb-1">Horário:</p>
-                  <p>Ter-Dom: 18h-23h</p>
-                  <p>Seg: Fechado</p>
-                </div>
+                <h3 className="font-bold text-lg text-accent">Siga-nos</h3>
               </div>
-
-              {/* Redes Sociais */}
-              <div className="flex flex-col gap-3 p-6 bg-background/50 rounded-xl border border-accent/20">
-                <div className="flex items-center gap-2">
-                  <div className="p-2 bg-accent/20 rounded-full">
-                    <Instagram className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="font-bold text-base text-accent">Siga-nos</h3>
-                </div>
-                <a 
-                  href="https://instagram.com/pizzariabellavista" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm opacity-90 hover:text-accent transition-colors flex items-center gap-2 group"
-                >
-                  <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  @pizzariabellavista
-                </a>
-              </div>
+              <a 
+                href="https://instagram.com/pizzariabellavista" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-base opacity-90 hover:text-accent transition-colors flex items-center gap-2 group"
+              >
+                <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                @pizzariabellavista
+              </a>
             </div>
           </div>
 
