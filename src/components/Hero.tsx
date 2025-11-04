@@ -15,13 +15,15 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto text-center relative z-10">
-        {/* Logo elegante com glassmorphism */}
+        {/* Logo elegante sem fundo */}
         <div className="inline-block mb-8 animate-fade-in">
-          <div className="glass-effect rounded-full p-4">
+          <div className="relative">
+            {/* Glow effect atrás do logo */}
+            <div className="absolute inset-0 bg-accent/30 rounded-full blur-2xl scale-110 animate-pulse-glow" />
             <img 
               src={logo} 
-              alt="Bella Vista Logo" 
-              className="w-40 h-40 mx-auto drop-shadow-2xl hover:scale-110 transition-transform duration-500 hover:rotate-3"
+              alt="Pizzaria Bella Vista - Delivery de Pizzas e Esfihas" 
+              className="relative w-48 h-48 mx-auto drop-shadow-[0_0_25px_rgba(250,204,21,0.4)] hover:scale-110 hover:drop-shadow-[0_0_35px_rgba(250,204,21,0.6)] transition-all duration-500 hover:rotate-3 filter brightness-110"
             />
           </div>
         </div>
