@@ -1,5 +1,5 @@
 import { Phone, Clock } from "lucide-react";
-import logo from "@/assets/logo-bella-vista.png";
+import logo from "@/assets/logo-bella-vista-transparent.png";
 
 const Hero = () => {
   return (
